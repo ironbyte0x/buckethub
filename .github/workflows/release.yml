@@ -1,0 +1,77 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+env:
+  BUN_VERSION: 1.3.11
+  NODE_VERSION: 24
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Extract version from tag
+        id: version
+        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          load: true
+          push: false
+          tags: |
+            ironbyte0x/buckethub:${{ steps.version.outputs.version }}
+            ironbyte0x/buckethub:latest
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: ${{ env.BUN_VERSION }}
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: bun ci
+
+      - name: Install Playwright chromium
+        run: bun playwright install chromium
+
+      - name: Install Playwright OS dependencies
+        run: bun playwright install-deps chromium
+
+      - name: Run e2e tests
+        run: bun nx e2e console-e2e
+        env:
+          E2E_MODE: docker
+          E2E_DOCKER_IMAGE: ironbyte0x/buckethub:${{ steps.version.outputs.version }}
+
+      - name: Push Docker image
+        run: |
+          docker push ironbyte0x/buckethub:${{ steps.version.outputs.version }}
+          docker push ironbyte0x/buckethub:latest
+
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v7
+        if: failure()
+        with:
+          name: playwright-report
+          path: dist/.playwright/apps/console-e2e/playwright-report
+          retention-days: 3
