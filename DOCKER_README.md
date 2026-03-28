@@ -99,4 +99,4 @@ When SMTP is not configured, emails (such as invitations and verification) are l
 - **Port:** 3000
 - **Base image:** `Debian slim`
 - **Architecture:** Single container with a compiled binary and static frontend assets
-- **License:** [MIT](https://github.com/ironbyte0x/buckethub/blob/master/LICENSE)
+- **License:** [MIT](https://github.com/ironbyte0x/buckethub/blob/main/LICENSE)

@@ -3,7 +3,7 @@ name: Docker Hub Description
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - DOCKER_README.md
 
