@@ -1,0 +1,1 @@
+export { ShareObjectDialog } from './dialog';

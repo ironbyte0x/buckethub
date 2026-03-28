@@ -1,0 +1,17 @@
+{
+  "name": "console",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/console/src",
+  "projectType": "application",
+  "tags": ["scope:app", "type:frontend"],
+  "// targets": "to see all targets run: nx show project console --web",
+  "targets": {
+    "panda-codegen": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "{projectRoot}",
+        "command": "panda codegen"
+      }
+    }
+  }
+}

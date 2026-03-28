@@ -1,0 +1,30 @@
+{
+  "name": "@buckethub/styled-system",
+  "version": "0.0.1",
+  "exports": {
+    "./css": {
+      "types": "./dist/css/index.d.ts",
+      "require": "./dist/css/index.js",
+      "import": "./dist/css/index.js"
+    },
+    "./jsx": {
+      "types": "./dist/jsx/index.d.ts",
+      "require": "./dist/jsx/index.js",
+      "import": "./dist/jsx/index.js"
+    },
+    "./patterns": {
+      "types": "./dist/patterns/index.d.ts",
+      "require": "./dist/patterns/index.js",
+      "import": "./dist/patterns/index.js"
+    },
+    "./tokens": {
+      "types": "./dist/tokens/index.d.ts",
+      "require": "./dist/tokens/index.js",
+      "import": "./dist/tokens/index.js"
+    },
+    "./types": {
+      "types": "./dist/types/index.d.ts"
+    },
+    "./styles.css": "./dist/styles.css"
+  }
+}

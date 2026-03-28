@@ -1,0 +1,13 @@
+@layer reset, base, tokens, recipes, utilities;
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background-color: var(--colors-background-base);
+  overflow: hidden;
+}

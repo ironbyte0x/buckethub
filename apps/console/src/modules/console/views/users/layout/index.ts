@@ -1,0 +1,1 @@
+export { UserManagementLayout } from './layout';

@@ -1,0 +1,1 @@
+export { createBucketsCollection } from './bucket';

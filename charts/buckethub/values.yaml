@@ -1,0 +1,83 @@
+nameOverride: ''
+fullnameOverride: ''
+
+image:
+  repository: docker.io/ironbyte0x/buckethub
+  tag: ''
+  pullPolicy: IfNotPresent
+imagePullSecrets: []
+
+config:
+  baseUrl: ''
+  port: 3000
+  dbConnectionString: 'data/db.sqlite'
+  authRateLimit: 10
+  rpcRateLimit: 100
+  admin:
+    email: ''
+    name: ''
+
+secrets:
+  secretEncryptionKey: ''
+  authSecret: ''
+  # Use an existing secret instead of creating one.
+  # The secret must contain the following keys:
+  #   Required: SECRET_ENCRYPTION_KEY, AUTH_SECRET
+  #   Optional: ADMIN_PASSWORD, SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_FROM
+  existingSecret: ''
+  adminPassword: ''
+  smtp:
+    host: ''
+    port: ''
+    user: ''
+    password: ''
+    from: ''
+
+persistence:
+  enabled: true
+  size: 1Gi
+  storageClass: ''
+  accessModes:
+    - ReadWriteOnce
+
+service:
+  type: ClusterIP
+  port: 80
+  annotations: {}
+
+ingress:
+  enabled: false
+  className: ''
+  annotations: {}
+  hosts:
+    - host: buckethub.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi
+
+serviceAccount:
+  create: true
+  name: ''
+  annotations: {}
+
+podAnnotations: {}
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+podSecurityContext:
+  fsGroup: 1000
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  allowPrivilegeEscalation: false

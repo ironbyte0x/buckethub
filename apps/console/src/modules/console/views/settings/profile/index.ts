@@ -1,0 +1,1 @@
+export { ProfileView } from './view';

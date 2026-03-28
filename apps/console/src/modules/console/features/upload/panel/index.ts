@@ -1,0 +1,1 @@
+export { UploadPanel } from './panel';

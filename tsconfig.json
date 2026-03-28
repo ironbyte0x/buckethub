@@ -1,0 +1,35 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compileOnSave": false,
+  "files": [],
+  "references": [
+    {
+      "path": "./apps/backend"
+    },
+    {
+      "path": "./apps/console-e2e"
+    },
+    {
+      "path": "./apps/console"
+    },
+    {
+      "path": "./libs/rpc-contract"
+    },
+    {
+      "path": "./libs/ui"
+    },
+    {
+      "path": "./libs/core"
+    },
+    {
+      "path": "./libs/test"
+    }
+  ],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs",
+      "moduleResolution": "node10",
+      "customConditions": null
+    }
+  }
+}

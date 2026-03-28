@@ -1,0 +1,1 @@
+export { MoveObjectDialog } from './dialog';

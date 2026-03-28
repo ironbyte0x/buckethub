@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 490 200" width="490" height="200">
+  <defs>
+    <linearGradient id="metalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2d2d2d"/>
+      <stop offset="50%" style="stop-color:#4a4a4a"/>
+      <stop offset="100%" style="stop-color:#1a1a1a"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#ff6b35"/>
+      <stop offset="100%" style="stop-color:#f7931e"/>
+    </linearGradient>
+    <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff6b35"/>
+      <stop offset="40%" style="stop-color:#f7931e"/>
+      <stop offset="100%" style="stop-color:#ff4500"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="490" height="200" rx="16" fill="#0d0d0d"/>
+
+  <!-- "IB" dot matrix inside hexagon (from standalone icon) -->
+  <g transform="translate(90, 100)">
+    <!-- Hexagon container -->
+    <polygon points="0,-62 53.7,-31 53.7,31 0,62 -53.7,31 -53.7,-31"
+             fill="none" stroke="url(#iconGrad)" stroke-width="6"/>
+
+    <!-- Dots with circuit lines (scaled to 85%) -->
+    <g transform="scale(0.85)">
+      <!-- Letter "I" -->
+      <circle cx="-33" cy="-30" r="4.8" fill="#ff6b35"/>
+      <circle cx="-23" cy="-30" r="4.8" fill="#ff6b35"/>
+      <circle cx="-13" cy="-30" r="4.8" fill="#ff6b35"/>
+      <line x1="-33" y1="-30" x2="-13" y2="-30" stroke="#ff6b35" stroke-width="1.8" opacity="0.35"/>
+      <circle cx="-23" cy="-20" r="4.8" fill="#f7931e"/>
+      <circle cx="-23" cy="-10" r="4.8" fill="#f7931e"/>
+      <circle cx="-23" cy="0" r="4.8" fill="#f7931e"/>
+      <circle cx="-23" cy="10" r="4.8" fill="#f7931e"/>
+      <circle cx="-23" cy="20" r="4.8" fill="#f7931e"/>
+      <line x1="-23" y1="-30" x2="-23" y2="30" stroke="#f7931e" stroke-width="1.8" opacity="0.35"/>
+      <circle cx="-33" cy="30" r="4.8" fill="#ff4500"/>
+      <circle cx="-23" cy="30" r="4.8" fill="#ff4500"/>
+      <circle cx="-13" cy="30" r="4.8" fill="#ff4500"/>
+      <line x1="-33" y1="30" x2="-13" y2="30" stroke="#ff4500" stroke-width="1.8" opacity="0.35"/>
+
+      <!-- Letter "B" -->
+      <circle cx="3" cy="-30" r="4.8" fill="#ff6b35"/>
+      <circle cx="13" cy="-30" r="4.8" fill="#ff6b35"/>
+      <circle cx="23" cy="-30" r="4.8" fill="#ff6b35"/>
+      <circle cx="33" cy="-30" r="4.8" fill="#ff6b35"/>
+      <line x1="3" y1="-30" x2="33" y2="-30" stroke="#ff6b35" stroke-width="1.8" opacity="0.35"/>
+      <circle cx="3" cy="-20" r="4.8" fill="#f7931e"/>
+      <circle cx="33" cy="-20" r="4.8" fill="#f7931e" opacity="0.8"/>
+      <line x1="33" y1="-30" x2="33" y2="-10" stroke="#f7931e" stroke-width="1.8" opacity="0.25"/>
+      <circle cx="3" cy="-10" r="4.8" fill="#f7931e"/>
+      <circle cx="33" cy="-10" r="4.8" fill="#f7931e" opacity="0.8"/>
+      <circle cx="3" cy="0" r="4.8" fill="#f7931e"/>
+      <circle cx="13" cy="0" r="4.8" fill="#f7931e"/>
+      <circle cx="23" cy="0" r="4.8" fill="#f7931e"/>
+      <circle cx="33" cy="0" r="4.8" fill="#f7931e"/>
+      <line x1="3" y1="0" x2="33" y2="0" stroke="#f7931e" stroke-width="1.8" opacity="0.35"/>
+      <line x1="3" y1="-30" x2="3" y2="30" stroke="#f7931e" stroke-width="1.8" opacity="0.3"/>
+      <circle cx="3" cy="10" r="4.8" fill="#f7931e"/>
+      <circle cx="33" cy="10" r="4.8" fill="#ff4500" opacity="0.8"/>
+      <line x1="33" y1="0" x2="33" y2="20" stroke="#ff4500" stroke-width="1.8" opacity="0.25"/>
+      <circle cx="3" cy="20" r="4.8" fill="#ff4500"/>
+      <circle cx="33" cy="20" r="4.8" fill="#ff4500" opacity="0.8"/>
+      <circle cx="3" cy="30" r="4.8" fill="#ff4500"/>
+      <circle cx="13" cy="30" r="4.8" fill="#ff4500"/>
+      <circle cx="23" cy="30" r="4.8" fill="#ff4500"/>
+      <circle cx="33" cy="30" r="4.8" fill="#ff4500"/>
+      <line x1="3" y1="30" x2="33" y2="30" stroke="#ff4500" stroke-width="1.8" opacity="0.35"/>
+
+      <!-- Cross-connections -->
+      <line x1="-13" y1="-30" x2="3" y2="-30" stroke="#ff6b35" stroke-width="1.2" opacity="0.15" stroke-dasharray="2,2"/>
+      <line x1="-13" y1="30" x2="3" y2="30" stroke="#ff4500" stroke-width="1.2" opacity="0.15" stroke-dasharray="2,2"/>
+    </g>
+  </g>
+
+  <!-- PascalCase text: "IronByte0x" -->
+  <text x="160" y="112" font-family="'SF Mono', 'Fira Code', 'Consolas', monospace"
+        font-size="48" font-weight="700" letter-spacing="-1">
+    <tspan fill="#e0e0e0">Iron</tspan><tspan fill="url(#accentGrad)">Byte</tspan><tspan fill="#666666" font-weight="300">0x</tspan>
+  </text>
+
+  <!-- Subtle underline accent -->
+  <line x1="160" y1="125" x2="488" y2="125" stroke="url(#accentGrad)" stroke-width="2" opacity="0.4"/>
+
+  <!-- Tagline -->
+  <text x="160" y="148" font-family="'SF Mono', 'Fira Code', 'Consolas', monospace"
+        font-size="12" fill="#555555" letter-spacing="4">
+    FORGE · BUILD · SHIP
+  </text>
+</svg>

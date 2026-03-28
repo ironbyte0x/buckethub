@@ -1,0 +1,43 @@
+# Dependencies
+node_modules
+.pnpm-store
+
+# Build outputs
+dist
+out-tsc
+*.tsbuildinfo
+
+# Nx cache
+.nx
+
+# Storybook
+**/*.stories.tsx
+.storybook
+
+# Development files
+.env
+.env.*
+!.env.example
+
+# IDE and editor
+.idea
+.vscode
+*.swp
+*.swo
+
+# Git
+.git
+.gitignore
+
+# Documentation and notes
+thoughts
+*.md
+!package.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*

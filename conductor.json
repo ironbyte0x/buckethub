@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "setup": "bun setup.ts",
+    "run": "bun nx run-many -t serve"
+  }
+}

@@ -1,0 +1,19 @@
+BucketHub - S3 Bucket Management Platform
+==========================================
+
+Welcome to BucketHub! This is a sample text file stored in your S3 bucket.
+
+Features:
+- Multi-provider support (AWS S3, Cloudflare R2, MinIO)
+- Real-time file preview for images, videos, audio, and documents
+- Team collaboration with role-based access control
+- Tag-based organization for buckets and connections
+- Secure file sharing with expiring URLs
+
+Getting Started:
+1. Connect your S3-compatible storage provider
+2. Browse and manage your buckets
+3. Upload, preview, and share files
+4. Invite team members and set permissions
+
+For more information, visit the documentation.

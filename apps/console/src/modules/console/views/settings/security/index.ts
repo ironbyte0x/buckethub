@@ -1,0 +1,1 @@
+export { SecurityView } from './view';

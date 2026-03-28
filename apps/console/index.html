@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>BucketHub</title>
+    <base href="/" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, interactive-widget=resizes-content"
+    />
+    <link rel="icon" type="image/svg+xml" href="/favico.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/styles.css" />
+    <script src="/config.js"></script>
+    <style>
+      #initial-loader {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        animation: loader-fade-in 0.6s ease-out 0.2s both;
+      }
+
+      #initial-loader.hidden {
+        display: none;
+      }
+
+      .dark #initial-loader {
+        background-color: lch(4.8 0.7 272);
+      }
+
+      #initial-loader path {
+        fill: #e7e8ea;
+        animation: bar-pulse 1.75s linear infinite backwards;
+      }
+
+      .dark #initial-loader path {
+        fill: #1c1c1f;
+        animation-name: bar-pulse-dark;
+      }
+
+      #initial-loader path:nth-child(3) {
+        animation-delay: 0s;
+      }
+
+      #initial-loader path:nth-child(2) {
+        animation-delay: 0.35s;
+      }
+
+      #initial-loader path:nth-child(1) {
+        animation-delay: 0.7s;
+      }
+
+      @keyframes bar-pulse {
+        0%,
+        20% {
+          fill: #e5e7eb;
+        }
+        20%,
+        40% {
+          fill: #9ca3af;
+        }
+        40%,
+        100% {
+          fill: #e5e7eb;
+        }
+      }
+
+      @keyframes bar-pulse-dark {
+        0%,
+        20% {
+          fill: #1f2937;
+        }
+        20%,
+        40% {
+          fill: #6b7280;
+        }
+        40%,
+        100% {
+          fill: #1f2937;
+        }
+      }
+
+      @keyframes loader-fade-in {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+    </style>
+    <script>
+      (function () {
+        const theme = localStorage.getItem('buckethub-theme') || 'system';
+        const isDark =
+          theme === 'dark' ||
+          (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+        if (isDark) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+  </head>
+
+  <body>
+    <div id="initial-loader">
+      <svg width="48" height="45" viewBox="0 0 368 346" fill="none">
+        <path
+          d="M322 0H46C20.5949 0 0 20.6248 0 46.0667C0 71.5086 20.5949 92.1333 46 92.1333H322C347.405 92.1333 368 71.5086 368 46.0667C368 20.6248 347.405 0 322 0Z"
+        />
+        <path
+          d="M276 126.683H92C66.5949 126.683 46 147.308 46 172.75C46 198.192 66.5949 218.817 92 218.817H276C301.405 218.817 322 198.192 322 172.75C322 147.308 301.405 126.683 276 126.683Z"
+        />
+        <path
+          d="M230 253.367H138C112.595 253.367 92 273.991 92 299.433C92 324.875 112.595 345.5 138 345.5H230C255.405 345.5 276 324.875 276 299.433C276 273.991 255.405 253.367 230 253.367Z"
+        />
+      </svg>
+    </div>
+
+    <div id="root"></div>
+
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

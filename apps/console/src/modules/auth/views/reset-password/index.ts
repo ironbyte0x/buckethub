@@ -1,0 +1,1 @@
+export { ResetPasswordView } from './view';

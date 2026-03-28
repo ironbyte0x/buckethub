@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <application name="BucketHub" version="1.0.0">
+    <description>S3 bucket management platform</description>
+    <environment>production</environment>
+  </application>
+
+  <storage>
+    <providers>
+      <provider type="aws-s3" region="us-east-1" enabled="true" />
+      <provider type="cloudflare-r2" region="auto" enabled="true" />
+      <provider type="minio" region="local" enabled="false" />
+    </providers>
+    <limits>
+      <maxUploadSize unit="GB">5</maxUploadSize>
+      <maxBuckets>100</maxBuckets>
+      <maxObjectsPerBucket>1000000</maxObjectsPerBucket>
+    </limits>
+  </storage>
+
+  <preview>
+    <supportedTypes>
+      <type category="image">jpeg,png,gif,webp</type>
+      <type category="video">mp4,webm,ogg</type>
+      <type category="audio">mpeg,wav,ogg</type>
+      <type category="text">plain,json,xml,html,css,javascript</type>
+      <type category="document">pdf</type>
+    </supportedTypes>
+  </preview>
+</configuration>

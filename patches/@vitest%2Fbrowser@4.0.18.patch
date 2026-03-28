@@ -1,0 +1,15 @@
+diff --git a/matchers.d.ts b/matchers.d.ts
+index 75d2d512e0a6ab500f4a8d16985bdd6765557318..6c47a9668a375c4754d46c3e8e4e76c9f7a034be 100644
+--- a/matchers.d.ts
++++ b/matchers.d.ts
+@@ -8,9 +8,7 @@ declare module 'vitest' {
+ 
+   type Promisify<O> = {
+     [K in keyof O]: O[K] extends (...args: infer A) => infer R
+-      ? O extends R
+-        ? Promisify<O[K]>
+-        : (...args: A) => Promise<R>
++      ? Promisify<O[K]> & ((...args: A) => Promise<R>)
+       : O[K];
+   }
+ 

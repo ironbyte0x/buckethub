@@ -1,0 +1,1 @@
+export { ForgotPasswordView } from './view';

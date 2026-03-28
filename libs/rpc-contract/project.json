@@ -1,0 +1,9 @@
+{
+  "name": "rpc-contract",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/rpc-contract/src",
+  "projectType": "library",
+  "tags": ["scope:lib", "type:shared"],
+  "// targets": "to see all targets run: nx show project rpc-contract --web",
+  "targets": {}
+}
