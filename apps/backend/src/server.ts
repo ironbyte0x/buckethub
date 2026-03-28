@@ -105,7 +105,9 @@ export async function startServer() {
   });
 
   app.use('/assets/*', serveStatic({ root: './public' }));
-  app.use('/favicon.svg', serveStatic({ path: './public/favicon.svg' }));
+  app.use('/demo/*', serveStatic({ root: './public' }));
+  app.use('/favico.svg', serveStatic({ path: './public/favico.svg' }));
+  app.use('/config.js', serveStatic({ path: './public/config.js' }));
   app.get('*', serveStatic({ path: './public/index.html' }));
 
   process.on('uncaughtException', (error) => {
