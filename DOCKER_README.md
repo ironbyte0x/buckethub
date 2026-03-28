@@ -2,7 +2,7 @@
 
 Unified S3 bucket management platform. Connect, explore, and manage your cloud storage from a single interface.
 
-[GitHub](https://github.com/ironbyte0x/buckethub) | [Live Demo](https://demo.buckethub.io)
+[GitHub](https://github.com/ironbyte0x/buckethub) | [Live Demo](https://demo.buckethub.net)
 
 ## Quick Start
 
