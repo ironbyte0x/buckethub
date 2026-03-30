@@ -18,7 +18,9 @@
   <a href="https://demo.buckethub.net"><strong>Live Demo</strong></a>
 </p>
 
-<!-- Add hero screenshot here -->
+<p align="center">
+  <img src="media/screenshot.png" alt="BucketHub Screenshot">
+</p>
 
 ## About
 
