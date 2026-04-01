@@ -53,6 +53,7 @@ export const StyledScrollAreaViewport = styled(ScrollArea.Viewport, {
     height: '100%',
     overflow: 'scroll',
     scrollbarWidth: 'none',
+    outline: 'none',
 
     '&::-webkit-scrollbar': {
       display: 'none'
