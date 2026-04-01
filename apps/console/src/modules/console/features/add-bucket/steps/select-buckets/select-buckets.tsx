@@ -10,6 +10,7 @@ import {
   Item,
   ResponsiveDialog,
   Reveal,
+  ScrollArea,
   Skeleton,
   Text
 } from '@buckethub/ui';
@@ -169,120 +170,162 @@ const SelectBucketsStepContent: React.FunctionComponent<SelectBucketsStepProps> 
         form.handleSubmit();
       }}
     >
-      <ResponsiveDialog.Body css={{ display: 'flex', flexDirection: 'column', gap: '2' }}>
-        {buckets.length > 0 ? (
-          <Flex css={{ flexDirection: 'column', gap: '3' }}>
-            <Item.Content>
-              <Item.Title>Choose which buckets you want to add</Item.Title>
-            </Item.Content>
+      <ResponsiveDialog.Body
+        css={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '2',
 
-            {buckets.map((bucket, index) => {
-              const isAdded = addedBuckets.has(bucket.name);
-              const isCompleted = isSubmitted || isAdded;
+          '&:has([data-has-overflow-y])': {
+            paddingRight: '2'
+          }
+        }}
+      >
+        <ScrollArea>
+          <ScrollArea.Viewport>
+            <ScrollArea.Content
+              css={{
+                maxHeight: '380px',
 
-              return (
-                <Flex key={bucket.name} css={{ flexDirection: 'column', gap: '2' }}>
-                  <form.AppField key={index} name={`buckets[${index}].checked`}>
-                    {(field) => (
-                      <Flex as={isCompleted ? 'div' : 'label'}>
-                        <Field>
-                          <Flex
-                            css={{
-                              flexDirection: 'column',
-                              border: isCompleted ? 'base' : undefined,
-                              borderRadius: 'lg'
-                            }}
-                          >
-                            <Item
-                              variant={isCompleted ? 'default' : 'outline'}
-                              actionable={!isCompleted}
-                              css={{
-                                paddingBlock: '3.5',
-                                paddingInline: '4',
-                                width: '100%',
-                                cursor: isCompleted ? 'default' : 'pointer'
-                              }}
-                            >
-                              <Item.Media>
-                                <Icon as={DatabaseIcon} size="xl" color="neutral" />
-                              </Item.Media>
+                '&[data-has-overflow-y]': {
+                  paddingRight: '4'
+                }
+              }}
+            >
+              {buckets.length > 0 ? (
+                <Flex css={{ flexDirection: 'column', gap: '3' }}>
+                  <Item.Content>
+                    <Item.Title>Choose which buckets you want to add</Item.Title>
+                  </Item.Content>
 
-                              <Item.Content css={{ gap: '0.5' }}>
-                                <Item.Title>{bucket.name}</Item.Title>
+                  {buckets.map((bucket, index) => {
+                    const isAdded = addedBuckets.has(bucket.name);
 
-                                <Suspense
-                                  fallback={<Skeleton css={{ width: '100px', height: '3.5' }} />}
-                                >
-                                  <BucketMetricsInfo
-                                    connectionId={connectionId}
-                                    bucketNames={buckets.map((b) => b.name)}
-                                    bucketName={bucket.name}
-                                  />
-                                </Suspense>
+                    if (isSubmitted && !isAdded) {
+                      return null;
+                    }
 
-                                <FieldError />
-                              </Item.Content>
-
-                              {isCompleted ? (
+                    return (
+                      <Flex
+                        key={bucket.name}
+                        css={{
+                          flexDirection: 'column',
+                          gap: '2'
+                        }}
+                      >
+                        <form.AppField key={index} name={`buckets[${index}].checked`}>
+                          {(field) => (
+                            <Flex as={isAdded ? 'div' : 'label'}>
+                              <Field>
                                 <Flex
                                   css={{
-                                    width: '4.5',
-                                    height: '4.5',
-                                    alignItems: 'center',
-                                    justifyContent: 'center'
+                                    flexDirection: 'column',
+                                    border: isAdded ? 'base' : undefined,
+                                    borderRadius: 'lg'
                                   }}
                                 >
-                                  <Icon as={CheckIcon} css={{ color: 'text-subtle' }} />
-                                </Flex>
-                              ) : (
-                                <Checkbox
-                                  onCheckedChange={(checked) => {
-                                    field.setValue(checked);
-                                  }}
-                                />
-                              )}
-                            </Item>
-
-                            <Reveal initial={false}>
-                              {isCompleted && (
-                                <Reveal.Content>
-                                  <Box
+                                  <Item
+                                    variant={isAdded ? 'default' : 'outline'}
+                                    actionable={!isAdded}
                                     css={{
-                                      borderTop: 'base',
+                                      paddingBlock: '3.5',
                                       paddingInline: '4',
-                                      paddingBlock: '1',
-                                      borderStyle: 'dashed',
-                                      width: '100%'
+                                      width: '100%',
+                                      cursor: isAdded ? 'default' : 'pointer'
                                     }}
                                   >
-                                    <TagManager
-                                      type="bucket"
-                                      bucketId={addedBucketIds[bucket.name]}
-                                    />
-                                  </Box>
-                                </Reveal.Content>
-                              )}
-                            </Reveal>
-                          </Flex>
-                        </Field>
+                                    <Item.Media>
+                                      <Icon as={DatabaseIcon} size="xl" color="neutral" />
+                                    </Item.Media>
+
+                                    <Item.Content css={{ gap: '0.5' }}>
+                                      <Item.Title>{bucket.name}</Item.Title>
+
+                                      <Suspense
+                                        fallback={
+                                          <Skeleton css={{ width: '100px', height: '3.5' }} />
+                                        }
+                                      >
+                                        <BucketMetricsInfo
+                                          connectionId={connectionId}
+                                          bucketNames={buckets.map((b) => b.name)}
+                                          bucketName={bucket.name}
+                                        />
+                                      </Suspense>
+
+                                      <FieldError />
+                                    </Item.Content>
+
+                                    {isAdded ? (
+                                      <Flex
+                                        css={{
+                                          width: '4.5',
+                                          height: '4.5',
+                                          alignItems: 'center',
+                                          justifyContent: 'center'
+                                        }}
+                                      >
+                                        <Icon as={CheckIcon} css={{ color: 'text-subtle' }} />
+                                      </Flex>
+                                    ) : (
+                                      <Checkbox
+                                        onCheckedChange={(checked) => {
+                                          field.setValue(checked);
+                                        }}
+                                      />
+                                    )}
+                                  </Item>
+
+                                  <Reveal initial={false}>
+                                    {isAdded && (
+                                      <Reveal.Content>
+                                        <Box
+                                          css={{
+                                            borderTop: 'base',
+                                            paddingInline: '4',
+                                            paddingBlock: '1',
+                                            borderStyle: 'dashed',
+                                            width: '100%'
+                                          }}
+                                        >
+                                          <TagManager
+                                            type="bucket"
+                                            bucketId={addedBucketIds[bucket.name]}
+                                          />
+                                        </Box>
+                                      </Reveal.Content>
+                                    )}
+                                  </Reveal>
+                                </Flex>
+                              </Field>
+                            </Flex>
+                          )}
+                        </form.AppField>
                       </Flex>
+                    );
+                  })}
+
+                  <form.AppField name="buckets">
+                    {() => (
+                      <Field>
+                        <FieldError />
+                      </Field>
                     )}
                   </form.AppField>
                 </Flex>
-              );
-            })}
-
-            <form.AppField name="buckets">
-              {() => (
-                <Field>
-                  <FieldError />
-                </Field>
+              ) : (
+                <SelectBucketsEmptyFallback />
               )}
-            </form.AppField>
-          </Flex>
-        ) : (
-          <SelectBucketsEmptyFallback />
-        )}
+            </ScrollArea.Content>
+
+            <ScrollArea.GradientPart position="top" />
+            <ScrollArea.GradientPart position="bottom" />
+          </ScrollArea.Viewport>
+
+          <ScrollArea.Scrollbar orientation="vertical">
+            <ScrollArea.Thumb />
+          </ScrollArea.Scrollbar>
+        </ScrollArea>
       </ResponsiveDialog.Body>
 
       <ResponsiveDialog.Footer>
