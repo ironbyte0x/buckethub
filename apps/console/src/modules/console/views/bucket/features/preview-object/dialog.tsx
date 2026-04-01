@@ -28,7 +28,7 @@ const Content: React.FunctionComponent<ContentProps> = ({ payload }) => {
         overflow: 'hidden',
 
         lg: {
-          maxWidth: 'min(90vw, 1200px)'
+          maxWidth: 'min(90vw, 800px)'
         }
       }}
     >
