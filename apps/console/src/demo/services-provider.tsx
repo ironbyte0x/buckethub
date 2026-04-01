@@ -2,6 +2,9 @@ import { useMemo } from 'react';
 import { ServiceContext } from '@/services/context';
 import { createServices } from '@/services/rpc';
 import { createDemoLink } from './link';
+import { installUploadInterceptor } from './upload-interceptor';
+
+installUploadInterceptor();
 
 interface DemoServicesProviderProps {
   children: React.ReactNode;

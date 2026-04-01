@@ -2,8 +2,73 @@ import { BucketId, Object } from '@buckethub/rpc-contract';
 import { demoState } from '../state';
 import type { HandlerRegistry } from '../types';
 
+const DEMO_UPLOAD_URL_PREFIX = 'demo://upload';
+
 function toBucketId(id: string): BucketId {
   return id as BucketId;
+}
+
+const extensionContentTypeMap: Record<string, string> = {
+  png: 'image/png',
+  jpg: 'image/jpeg',
+  jpeg: 'image/jpeg',
+  gif: 'image/gif',
+  webp: 'image/webp',
+  svg: 'image/svg+xml',
+  mp4: 'video/mp4',
+  webm: 'video/webm',
+  ogg: 'audio/ogg',
+  mp3: 'audio/mpeg',
+  wav: 'audio/wav',
+  txt: 'text/plain',
+  md: 'text/markdown',
+  json: 'application/json',
+  html: 'text/html',
+  css: 'text/css',
+  js: 'application/javascript',
+  xml: 'application/xml',
+  pdf: 'application/pdf'
+};
+
+function getContentTypeFromKey(key: string): string | undefined {
+  const extension = key.split('.').pop()?.toLowerCase();
+
+  return extension ? extensionContentTypeMap[extension] : undefined;
+}
+
+function addObjectToState(bucketId: BucketId, key: string): void {
+  const objects = demoState.objects.get(bucketId) || [];
+  const name = key.split('/').pop() || key;
+  const contentType = getContentTypeFromKey(key);
+  const existingKeys = new Set(objects.map((object) => object.key));
+
+  const parts = key.split('/');
+
+  for (let index = 1; index < parts.length; index++) {
+    const folderKey = parts.slice(0, index).join('/') + '/';
+
+    if (!existingKeys.has(folderKey)) {
+      objects.push({
+        type: 'folder',
+        key: folderKey,
+        name: parts[index - 1]
+      });
+
+      existingKeys.add(folderKey);
+    }
+  }
+
+  const filtered = objects.filter((object) => object.key !== key);
+
+  filtered.push({
+    type: 'file',
+    key,
+    name,
+    contentType,
+    lastModified: new Date().toISOString()
+  });
+
+  demoState.objects.set(bucketId, filtered);
 }
 
 export const objects: HandlerRegistry<'objects'> = {
@@ -134,16 +199,24 @@ export const objects: HandlerRegistry<'objects'> = {
   },
 
   getUploadUrl: async (input) => {
+    const bucketId = toBucketId(input.bucketId);
+
+    addObjectToState(bucketId, input.key);
+
     return {
-      url: `https://demo.example.com/upload/${input.bucketId}/${input.key}`
+      url: `${DEMO_UPLOAD_URL_PREFIX}/${input.bucketId}/${input.key}`
     };
   },
 
   initiateMultipartUpload: async (input) => {
+    const bucketId = toBucketId(input.bucketId);
+
+    addObjectToState(bucketId, input.key);
+
     const uploadId = crypto.randomUUID();
     const presignedUrls = Array.from({ length: input.totalParts }, (_, index) => ({
       partNumber: index + 1,
-      presignedUrl: `https://demo.example.com/upload/${input.bucketId}/${input.key}?uploadId=${uploadId}&partNumber=${index + 1}`
+      presignedUrl: `${DEMO_UPLOAD_URL_PREFIX}/${input.bucketId}/${input.key}?uploadId=${uploadId}&partNumber=${index + 1}`
     }));
 
     return { uploadId, presignedUrls };
