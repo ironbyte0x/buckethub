@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { alert, Text } from '@buckethub/ui';
 import { UploadObjectInput, useObjectsImperative, useUploadObject } from '@/services/objects';
 import { getObjectUploadKey } from '@/shared/lib';
+import { resolveConflicts } from './resolve-conflicts';
 import { useUploadStore } from './upload-store';
 import { useUploadUiStore } from './upload-ui-store';
 
@@ -110,46 +111,10 @@ export function useUploader() {
         return;
       }
 
-      const basePrefix = files[0].prefix;
-      const bucketId = files[0].bucketId;
+      const { conflicting, nonConflicting } = await resolveConflicts(files, getObjects);
 
-      const filesWithKeys = files.map((file) => ({
-        file,
-        key: getObjectUploadKey({
-          basePrefix: file.prefix,
-          path: file.path,
-          name: file.name
-        })
-      }));
-
-      // Only check for conflicts among files in the current folder (empty path)
-      const directFiles = filesWithKeys.filter((f) => f.file.path === '');
-      const subfolderFiles = filesWithKeys.filter((f) => f.file.path !== '');
-
-      let conflicting: typeof filesWithKeys = [];
-      let nonConflicting: typeof filesWithKeys;
-
-      if (directFiles.length > 0) {
-        const pages = await getObjects({ bucketId, prefix: basePrefix });
-        const existingObjects = pages.flat();
-        const existingFileKeys = new Set(
-          existingObjects.filter((object) => object.type === 'file').map((object) => object.key)
-        );
-
-        conflicting = directFiles.filter((f) => existingFileKeys.has(f.key));
-
-        nonConflicting = [
-          ...directFiles.filter((f) => !existingFileKeys.has(f.key)),
-          ...subfolderFiles
-        ];
-      } else {
-        nonConflicting = filesWithKeys;
-      }
-
-      // Start uploading non-conflicting files immediately
       runWithConcurrency(nonConflicting, ({ file }) => upload(file), 4);
 
-      // Show confirmation dialog for conflicting files
       if (conflicting.length > 0) {
         let shouldReplace = false;
 
